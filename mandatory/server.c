@@ -6,15 +6,11 @@
 /*   By: amezioun <amezioun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:32:27 by amezioun          #+#    #+#             */
-/*   Updated: 2024/04/23 16:58:12 by amezioun         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:49:38 by amezioun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <unistd.h>
+#include "minitalk.h"
 
 void	ft_putchar(char c)
 {
@@ -75,6 +71,7 @@ int	main(void)
 	sigaction(SIGUSR2, &act, NULL);
 	while (1)
 	{
+		pause();
 	}
 	return (0);
 }

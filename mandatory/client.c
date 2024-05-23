@@ -6,16 +6,11 @@
 /*   By: amezioun <amezioun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 15:32:20 by amezioun          #+#    #+#             */
-/*   Updated: 2024/04/23 16:59:21 by amezioun         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:51:15 by amezioun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/types.h>
-#include <unistd.h>
+#include "minitalk.h"
 
 int	ft_atoi(char *str)
 {
@@ -55,7 +50,7 @@ void	send_char_as_signals(int pid, char c)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(42);
+		usleep(300);
 		bit++;
 	}
 }
@@ -63,22 +58,21 @@ void	send_char_as_signals(int pid, char c)
 int	main(int ac, char **av)
 {
 	int		j;
-	char	*text;
+	char	*message;
 	int		pid;
 
 	if (ac != 3)
-	{
-		printf("./a.out pid text");
-	}
+		write(1, "<./client>  <PID>  <MESSAGE>\n", 29);
 	else
 	{
 		j = 0;
-		text = av[2];
+		message = av[2];
 		pid = ft_atoi(av[1]);
-		while (text[j] != '\0')
+		while (message[j] != '\0')
 		{
-			send_char_as_signals(pid, text[j]);
+			send_char_as_signals(pid, message[j]);
 			j++;
+			usleep(300);
 		}
 		send_char_as_signals(pid, '\n');
 	}

@@ -6,15 +6,11 @@
 /*   By: amezioun <amezioun@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 16:17:04 by amezioun          #+#    #+#             */
-/*   Updated: 2024/04/23 19:51:53 by amezioun         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:58:18 by amezioun         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/types.h>
-#include <unistd.h>
+#include "minitalk_bonus.h"
 
 void	ft_putchar(char c)
 {
@@ -41,9 +37,9 @@ int	ft_putnbr(long n)
 
 void	trait(int signal, siginfo_t *info, void *nl)
 {
-	static char	res = 0;
-	static int	bit = 0;
-	static int	pid = 0;
+	static unsigned char	res = 0;
+	static int				bit = 0;
+	static int				pid = 0;
 
 	nl = NULL;
 	if (info->si_pid != pid)
@@ -57,12 +53,12 @@ void	trait(int signal, siginfo_t *info, void *nl)
 	if (bit == 8)
 	{
 		write(1, &res, 1);
-		if(res == '\0')
+		if (res == '\0')
 			kill(info->si_pid, SIGUSR2);
 		bit = 0;
 		res = 0;
 	}
-		pid = info->si_pid;
+	pid = info->si_pid;
 }
 
 int	main(void)
